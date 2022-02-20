@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="select">@android:color/white</color>
+    <color name="no_select">#5effffff</color>
+    <color name="letter_hint_bg">#5e000000</color>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LetterLauncher</string>
+    <string name="detail">详情</string>
+    <string name="favorite">收藏</string>
+    <string name="favorite_cancel">取消收藏</string>
+    <string name="set_default_launcher">设置为默认Launcher</string>
+    <string name="set_default_launcher_positive">确定</string>
+    <string name="set_default_launcher_negative">取消</string>
+</resources>

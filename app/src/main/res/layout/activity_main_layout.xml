@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.javalive09.letterapps.AppGroupRecyclerView
+        android:id="@+id/app_group_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/letter_width"
+        android:gravity="center"/>
+
+    <com.javalive09.letterapps.LetterRecyclerView
+        android:id="@+id/letter_list"
+        android:layout_width="@dimen/letter_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:listSelector="@android:color/transparent"/>
+
+    <TextView
+        android:id="@+id/letter_hint"
+        android:layout_width="@dimen/letter_hint_width"
+        android:layout_height="@dimen/letter_hint_height"
+        android:layout_gravity="center"
+        android:background="@drawable/letter_hint_bg"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/letter_hint_size"
+        android:visibility="gone"/>
+
+</merge>
