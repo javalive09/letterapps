@@ -5,5 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="select">@android:color/white</color>
     <color name="no_select">#5effffff</color>
-    <color name="letter_hint_bg">#5e000000</color>
+    <color name="letter_hint_bg">#ff333333</color>
 </resources>

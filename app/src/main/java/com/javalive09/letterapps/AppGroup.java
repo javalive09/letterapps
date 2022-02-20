@@ -18,10 +18,22 @@ public class AppGroup implements Comparable<AppGroup> {
 
     @Override
     public int compareTo(AppGroup o) {
-//        if (TextUtils.equals(letter, AppModel.NO_LETTER)) {
-//            char nextZ = 'Z' + 1;
-//            return String.valueOf(nextZ).compareTo(o.letter);
-//        }
+        if (TextUtils.equals(letter, AppModel.NO_LETTER)) {
+            return 1;
+        }
+
+        if (TextUtils.equals(o.letter, AppModel.NO_LETTER)) {
+            return -1;
+        }
+
+        if (TextUtils.equals(letter, MainActivity.FAVORITE_LETTER)) {
+            return -1;
+        }
+
+        if (TextUtils.equals(o.letter, MainActivity.FAVORITE_LETTER)) {
+            return 1;
+        }
+
         return letter.compareTo(o.letter);
     }
 

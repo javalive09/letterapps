@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends Activity {
 
-    private static final String FAVORITE_LETTER = "★️";
+    static final String FAVORITE_LETTER = "★️";
     private LetterRecyclerView letterRecyclerView;
     private AppGroupAdapter appGroupAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -215,9 +215,6 @@ public class MainActivity extends Activity {
 
     private void sort(List<AppGroup> groupDataList) {
         Collections.sort(groupDataList);
-        for (AppGroup appGroup : groupDataList) {
-            Collections.sort(appGroup.appModelList);
-        }
     }
 
     private void installGroupList(Map<String, ?> favorites, String packageName, List<AppGroup> groupList) {
