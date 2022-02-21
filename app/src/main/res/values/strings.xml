@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LetterLauncher</string>
+    <string name="app_name">AppList</string>
     <string name="detail">详情</string>
     <string name="favorite">收藏</string>
     <string name="favorite_cancel">取消收藏</string>
