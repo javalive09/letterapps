@@ -15,6 +15,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 public class AppModel implements Comparable<AppModel> {
 
+    static final String FAVORITE_LETTER = "★️";
     static final String NO_LETTER = "#";
     private String letter;
     String label;

@@ -6,7 +6,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.net.Uri;
@@ -20,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AppModelAdapter extends RecyclerView.Adapter<AppModelAdapter.Holder>
@@ -30,6 +30,7 @@ public class AppModelAdapter extends RecyclerView.Adapter<AppModelAdapter.Holder
     AppModelAdapter() {
     }
 
+    @NonNull
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.app_item_layout, parent, false));
@@ -56,6 +57,7 @@ public class AppModelAdapter extends RecyclerView.Adapter<AppModelAdapter.Holder
         return appModelList.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void refreshData(List<AppModel> appModelList) {
         if (!this.appModelList.equals(appModelList)) {
             this.appModelList.clear();
@@ -88,37 +90,18 @@ public class AppModelAdapter extends RecyclerView.Adapter<AppModelAdapter.Holder
             final List<ShortcutInfo> shortcutInfoList = shortcutUtil.getShortcutListInfo(appModel);
             if (shortcutInfoList != null && shortcutInfoList.size() > 0) {
                 CharSequence[] arrayOfCharSequence = shortcutUtil.getItems(shortcutInfoList);
-                builder.setItems(arrayOfCharSequence, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ShortcutInfo shortcutInfo = shortcutInfoList.get(i);
-                        shortcutUtil.launchShortcutAPP(appModel.context, shortcutInfo);
-                    }
+                builder.setItems(arrayOfCharSequence, (dialogInterface, i) -> {
+                    ShortcutInfo shortcutInfo = shortcutInfoList.get(i);
+                    shortcutUtil.launchShortcutAPP(appModel.context, shortcutInfo);
                 });
             }
         }
-        builder.setPositiveButton(R.string.detail, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                showDetailStopView(view.getContext(), appModel);
-            }
-        });
+        builder.setPositiveButton(R.string.detail, (dialogInterface, i) -> showDetailStopView(view.getContext(), appModel));
         final boolean isFavorite = SharedPreferenceUtil.getBoolean(appModel.context,
                 SharedPreferenceUtil.FAVORITE, appModel.getFavoriteKey());
-        builder.setNegativeButton(isFavorite ? R.string.favorite_cancel : R.string.favorite, new DialogInterface
-                .OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SharedPreferenceUtil.putBoolean(appModel.context, SharedPreferenceUtil.FAVORITE, appModel
-                        .getFavoriteKey(), !isFavorite);
-            }
-        });
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                ((AppGroupRecyclerView) appGroupRecyclerView).setScrollEnable(true);
-            }
-        }).show();
+        builder.setNegativeButton(isFavorite ? R.string.favorite_cancel : R.string.favorite, (dialog, which) -> SharedPreferenceUtil.putBoolean(appModel.context, SharedPreferenceUtil.FAVORITE, appModel
+                .getFavoriteKey(), !isFavorite));
+        builder.setOnDismissListener(dialogInterface -> ((AppGroupRecyclerView) appGroupRecyclerView).setScrollEnable(true)).show();
         ((AppGroupRecyclerView) appGroupRecyclerView).setScrollEnable(false);
         return true;
     }
@@ -155,6 +138,7 @@ public class AppModelAdapter extends RecyclerView.Adapter<AppModelAdapter.Holder
         }
 
         View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {

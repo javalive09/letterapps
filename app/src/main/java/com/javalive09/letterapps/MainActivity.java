@@ -5,14 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -27,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends Activity {
 
-    static final String FAVORITE_LETTER = "★️";
     private LetterRecyclerView letterRecyclerView;
     private AppGroupAdapter appGroupAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -164,7 +161,16 @@ public class MainActivity extends Activity {
                     }
 
                 } else {// favorite
-                    AppGroup favoriteAppGroup = groupDataList.get(groupDataList.size() - 1);
+                    AppGroup favoriteAppGroup = null;
+                    for (AppGroup appGroup : groupDataList) {
+                        if (appGroup.letter.equals(AppModel.FAVORITE_LETTER)) {
+                            favoriteAppGroup = appGroup;
+                            break;
+                        }
+                    }
+                    if (favoriteAppGroup == null) {
+                        return;
+                    }
                     ArrayList<AppModel> tempAppModelList = new ArrayList<>(favoriteAppGroup.appModelList);
                     for (AppModel appModel : tempAppModelList) {
                         if (TextUtils.equals(appModel.getApplicationPackageName(), packageName)) {
@@ -233,7 +239,7 @@ public class MainActivity extends Activity {
                     Object isFavorite = favorites.get(appModel.getFavoriteKey());
                     if (isFavorite instanceof Boolean && (Boolean) isFavorite) {
                         AppModel appModelFavorite = new AppModel(appModel);
-                        appModelFavorite.setLetter(FAVORITE_LETTER);
+                        appModelFavorite.setLetter(AppModel.FAVORITE_LETTER);
                         installData(groupList, appModelFavorite);
                     }
                 }

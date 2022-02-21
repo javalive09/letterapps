@@ -2,6 +2,7 @@ package com.javalive09.letterapps;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class AppGroupAdapter extends RecyclerView.Adapter<AppGroupAdapter.Holder
         this.groupDataList = groupDataList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void refreshData(List<AppGroup> groupDataList) {
         this.groupDataList = groupDataList;
         notifyDataSetChanged();
